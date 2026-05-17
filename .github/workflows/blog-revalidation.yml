@@ -13,15 +13,8 @@ jobs:
     steps:
       - name: Ping portfolio revalidation webhook
         run: |
-          echo "Sending revalidation request..."
-          HTTP_CODE=$(curl -s -o /tmp/response_body.txt -w "%{http_code}" \
-            -X POST https://dev.loart.dev/api/revalidate \
+          curl -f -s -o /dev/null -w "%{http_code}" \
+            -X POST https://www.loart.dev/api/revalidate \
             -H "Content-Type: application/json" \
             -H "x-revalidate-secret: ${{ secrets.PORTFOLIO_REVALIDATE_SECRET }}" \
-            -d '{"scope":"blog"}')
-          echo "HTTP status: $HTTP_CODE"
-          echo "Response body: $(cat /tmp/response_body.txt)"
-          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
-            echo "::error::Revalidation failed with HTTP $HTTP_CODE"
-            exit 1
-          fi
+            -d '{"scope":"blog"}'
