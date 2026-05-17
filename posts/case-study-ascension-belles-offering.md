@@ -1,14 +1,11 @@
 ---
 title: "Case Study: Ascension Belle's Offering"
-seoTitle: "Ascension Belle's Innovative Solution"
-seoDescription: "Explore the making of "Ascension: Belle's Offering," a 2D platformer crafted in just three days for Speed Jam"
-datePublished: 2024-11-16T00:46:08.152Z
-cuid: cm3jg5zx4000609l91gwfbbi6
-slug: case-study-ascension-belles-offering
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1731718271336/93a8e03f-a46f-4234-9b1d-e4bdf7698e00.jpeg
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1731717946605/123fe640-f1c8-4fbb-8013-650ec5ac4001.jpeg
-tags: game-development, game-design, indiedev, gamedev, game-jam, game-maker-2
-
+date: "2024-11-16"
+excerpt: "Explore the making of Ascension: Belle's Offering, a 2D platformer crafted in just three days for Speed Jam"
+category: "Game Dev"
+tags: ["game-development", "game-design", "indiedev", "gamedev", "game-jam", "game-maker-2"]
+featured: false
+bannerImage: "https://cdn.hashnode.com/res/hashnode/image/upload/v1731718271336/93a8e03f-a46f-4234-9b1d-e4bdf7698e00.jpeg"
 ---
 
 ## **Overview**

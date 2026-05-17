@@ -1,14 +1,11 @@
 ---
 title: "Boost Your Unreal Engine Game: Best EOS Plugin Options"
-seoTitle: "Top EOS Plugins for Unreal Engine"
-seoDescription: "Discover top EOS plugins to enhance your Unreal Engine game development with easier multiplayer implementation and cross-platform support"
-datePublished: 2024-12-01T02:11:52.925Z
-cuid: cm44yu1ng000309i08sq57m5c
-slug: boost-your-unreal-engine-game-best-eos-plugin-options
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1733018935139/f26fe2d5-75a6-4c26-9a3b-7bb44c41c4a4.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1733018943274/b7f1083b-3964-40d1-8d72-3a8ee7421e29.png
-tags: plugins, game-development, unreal-engine, online, game-design, multiplayer-games, eos, game-programming, unreal-engine-5, epiconlineservices, unreal-engine-plugins, multiplayer-game
-
+date: "2024-12-01"
+excerpt: "Discover top EOS plugins to enhance your Unreal Engine game development with easier multiplayer implementation and cross-platform support"
+category: "Game Dev"
+tags: ["plugins", "game-development", "unreal-engine", "game-design", "multiplayer-games", "eos", "game-programming", "unreal-engine-5", "epiconlineservices"]
+featured: false
+bannerImage: "https://cdn.hashnode.com/res/hashnode/image/upload/v1733018935139/f26fe2d5-75a6-4c26-9a3b-7bb44c41c4a4.png"
 ---
 
 As an Unreal Game Dev you might have asked yourself how to do a multiplayer game, keep track of your players, have a store or even publish your game on Epic Games Store. Well, the answer to this is [EOS (Epic Online Services)](https://www.loart.dev/blog/enhancing-online-gaming-with-epic-online-services-a-developers-perspective). These tools are designed to help game dev to implement all sort of features, like Cross platform multiplayer, progression (achievements, player data storage, leaderboards), P2P (peer-to-peer connectivity), game analytics, anti-cheat, title storage, and more.

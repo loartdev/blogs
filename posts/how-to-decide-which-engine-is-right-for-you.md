@@ -1,14 +1,11 @@
 ---
 title: "How to Decide Which Engine is Right for You"
-seoTitle: "Choosing Your Ideal Engine: A Quick Guide"
-seoDescription: "Choose the right game engine by assessing project scope, team expertise, and community support. Explore popular engines' strengths and features"
-datePublished: 2024-11-19T05:06:20.378Z
-cuid: cm3nzs6e2000809mh6o83btt1
-slug: how-to-decide-which-engine-is-right-for-you
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1731992719899/046479ab-62a1-4bcb-8a9e-72e711b50499.jpeg
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1731992517563/3531edff-55ac-483f-aad0-e4826e1c5ac7.jpeg
-tags: development, game-development, game-engine, game-design
-
+date: "2024-11-19"
+excerpt: "Choose the right game engine by assessing project scope, team expertise, and community support. Explore popular engines' strengths and features"
+category: "Game Dev"
+tags: ["development", "game-development", "game-engine", "game-design"]
+featured: false
+bannerImage: "https://cdn.hashnode.com/res/hashnode/image/upload/v1731992719899/046479ab-62a1-4bcb-8a9e-72e711b50499.jpeg"
 ---
 
 ## What is a game engine?

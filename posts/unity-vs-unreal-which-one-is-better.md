@@ -1,14 +1,11 @@
 ---
 title: "Unity vs Unreal: Which One Is Better?"
-seoTitle: "Unity vs Unreal: Which Engine Is Better for Your Game?"
-seoDescription: "My experience working with Unity and Unreal Engine, comparing tools, rendering, platforms, workflow, and what actually matters when choosing the right"
-datePublished: 2026-03-26T00:44:32.748Z
-cuid: cmn6r2maz00jc2dmm2vwpgodz
-slug: unity-vs-unreal-which-one-is-better
-canonical: https://www.loart.dev/blog/unity-vs-unreal-which-one-is-better
-cover: https://cdn.hashnode.com/uploads/covers/6737e925bd96e90c31f33ef9/4de678af-0c39-4c25-af23-71158f9168ae.png
-ogImage: https://cdn.hashnode.com/uploads/og-images/6737e925bd96e90c31f33ef9/de839a8a-a449-4b2e-ae59-740105f5a79e.png
-
+date: "2026-03-26"
+excerpt: "My experience working with Unity and Unreal Engine, comparing tools, rendering, platforms, workflow, and what actually matters when choosing the right engine"
+category: "Game Dev"
+tags: ["unity", "unreal-engine", "game-engine", "game-development", "game-design"]
+featured: false
+bannerImage: "https://cdn.hashnode.com/uploads/covers/6737e925bd96e90c31f33ef9/4de678af-0c39-4c25-af23-71158f9168ae.png"
 ---
 
 This is a very hard question to answer just by looking around or comparing features. You might like one more than the other, or even say that Godot is the actual answer. To be fair, I struggle with that question constantly too, but I have had the opportunity to work with both engines on very different, yet still similar, projects.

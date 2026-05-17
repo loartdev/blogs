@@ -1,14 +1,11 @@
 ---
 title: "How to Set Up EOS Integration Kit in Unreal Engine 5"
-seoTitle: "EOS Integration in Unreal Engine 5 Setup Guide"
-seoDescription: "Learn to set up the EOS Integration Kit in Unreal Engine 5 for seamless Epic Online Services integration"
-datePublished: 2024-12-18T18:18:57.156Z
-cuid: cm4u7v6ro001009mn0hdi2vqh
-slug: how-to-set-up-eos-integration-kit-in-unreal-engine-5
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1734545779036/0421ead0-2a70-4d35-a1eb-b382ee9b6b87.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1734545873579/e69b27e5-3262-4c68-9790-cfb6abd9c900.png
-tags: tutorial, plugins, game-development, games, unreal-engine, game-design, multiplayer-games, eos, 2articles1week, ue5-tutorials, ue5, epiconlineservices, eik, eos-integration-kit
-
+date: "2024-12-18"
+excerpt: "Learn to set up the EOS Integration Kit in Unreal Engine 5 for seamless Epic Online Services integration"
+category: "Game Dev"
+tags: ["tutorial", "plugins", "game-development", "unreal-engine", "game-design", "multiplayer-games", "eos", "ue5", "epiconlineservices", "eik", "eos-integration-kit"]
+featured: false
+bannerImage: "https://cdn.hashnode.com/res/hashnode/image/upload/v1734545779036/0421ead0-2a70-4d35-a1eb-b382ee9b6b87.png"
 ---
 
 When implementing [Epic Online Services (EOS)](https://www.loart.dev/blog/enhancing-online-gaming-with-epic-online-services-a-developers-perspective) in your Unreal Engine game, you might want to consider using a third party plugin like EIK (EOS Integration Kit). Because [this third party integrations make the process of implementing EOS SDK much easier](https://www.loart.dev/blog/boost-your-unreal-engine-game-best-eos-plugin-options), reducing the amount of code you have to do, and helping you implement EOS from blueprints.

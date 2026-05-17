@@ -1,14 +1,11 @@
 ---
 title: "Enhancing Online Gaming with Epic Online Services: A Developer's Perspective"
-seoTitle: "Epic Online Services transforms gaming experience"
-seoDescription: "Discover how Epic Online Services can elevate your game development with cross-platform support, matchmaking, analytics, and more"
-datePublished: 2024-11-18T17:48:32.970Z
-cuid: cm3nbkj7u000509mg0foe9yu2
-slug: enhancing-online-gaming-with-epic-online-services-a-developers-perspective
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1731951885051/70928e37-4eb1-42c7-8c11-0b8a94ff99e3.jpeg
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1731952025957/85872696-c7b4-49f7-88bc-25a95202ea5f.jpeg
-tags: game-development, unreal-engine, game-design, multiplayer-games, eos, epic-games, epiconlineservices, online-multiplayer
-
+date: "2024-11-18"
+excerpt: "Discover how Epic Online Services can elevate your game development with cross-platform support, matchmaking, analytics, and more"
+category: "Game Dev"
+tags: ["game-development", "unreal-engine", "game-design", "multiplayer-games", "eos", "epic-games", "epiconlineservices", "online-multiplayer"]
+featured: false
+bannerImage: "https://cdn.hashnode.com/res/hashnode/image/upload/v1731951885051/70928e37-4eb1-42c7-8c11-0b8a94ff99e3.jpeg"
 ---
 
 ## **Introduction**

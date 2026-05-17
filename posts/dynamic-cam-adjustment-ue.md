@@ -1,14 +1,11 @@
 ---
 title: "Dynamic Camera Adjustment in Unreal Engine: Keeping Actors in View"
-seoTitle: "Keeping actors in view in Unreal"
-seoDescription: "Learn to create a dynamic camera system in Unreal Engine to keep actors in view, with step-by-step Blueprints and math breakdown"
-datePublished: 2024-11-16T00:50:38.742Z
-cuid: cm3jgbspi00050ajs6ssi2iwf
-slug: dynamic-camera-adjustment-in-unreal-engine-keeping-actors-in-view
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1731718304122/50ae94c7-b743-4c40-a4fc-8bae42911ff9.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1731718191773/35ed7f5c-48c1-43cd-9828-65b6db2e5a4e.png
-tags: game-development, unreal-engine, blueprints, gamedev, unreal-engine-5
-
+date: "2024-11-16"
+excerpt: "Learn to create a dynamic camera system in Unreal Engine to keep actors in view, with step-by-step Blueprints and math breakdown"
+category: "Game Dev"
+tags: ["game-development", "unreal-engine", "blueprints", "gamedev", "unreal-engine-5"]
+featured: false
+bannerImage: "https://cdn.hashnode.com/res/hashnode/image/upload/v1731718304122/50ae94c7-b743-4c40-a4fc-8bae42911ff9.png"
 ---
 
 ## **Introduction**
