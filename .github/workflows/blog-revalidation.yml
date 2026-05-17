@@ -1,0 +1,20 @@
+name: Revalidate Portfolio Blog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'posts/**'
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping portfolio revalidation webhook
+        run: |
+          curl -f -s -o /dev/null -w "%{http_code}" \
+            -X POST https://dev.loart.dev/api/revalidate \
+            -H "Content-Type: application/json" \
+            -H "x-revalidate-secret: ${{ secrets.PORTFOLIO_REVALIDATE_SECRET }}" \
+            -d '{"scope":"blog"}'
