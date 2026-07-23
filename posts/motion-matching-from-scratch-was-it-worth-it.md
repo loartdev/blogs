@@ -33,7 +33,7 @@ Now I have to implement it... and before you think I had any idea on how these s
 ## What is Motion Matching really?
 
 As the name suggest we are matching the movement of the character using the animation. Now that might be hard to imagine when you know that we use root motion, so the animation moves the character....  
-  
+
 How ever, the core is you have a motion you want the character to do, so the system goes over the animations and gets the best animation to match that movement. To do the search of the pose there is multiple ways, but most of them use the same basis:
 
 
@@ -89,8 +89,6 @@ Then when I had learned i did a simple scope:
 2. Long raw mocap clips: I was not cleaning that, and making loops or clean starts and stops.
 3. Offline baking of data: Extracting data into flat arrays had to be done in the editor, not at runtime.
 4. Simple to test and iterate: I was not going to depend on code changes or manual work, so i added tooling and exposed development data to speed up my development.
-
-
 
 With that in mind, now we need some test Mocap, good new I am one of the Mocap "experts" and capable of doing almost everything. But I needed the help of someone else as I was the one in the skin tight body suit cover in reflective balls... 
 
