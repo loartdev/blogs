@@ -288,9 +288,6 @@ Valid Switch:
 Invalid Swith:
 > CurrentPose Cost: 30
 > BestCandidatePose Cost: 28
-
-
-
 ```
 
 
