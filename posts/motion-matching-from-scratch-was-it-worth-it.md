@@ -243,14 +243,12 @@ Getting the right future trajectory matters a lot because a frame that looks per
 ### Adjusting the cost
 
 Now that we know what we are tracking, we need to adjust the cost of each thing. So I exposed all the costs to the editor, so I can run tests, make changes, and exports fast, and without changing the code.  
-  
+
 Here you are trying to balance between plenty of things. How accurate it is to follow the trajectory? How important are the feet? Is the speed more important than the path? Do we care about the current tag more than the position of the feet? And so on. 
 
 Now there is always the question of how much of the problem is my values on the cost function and how much of it is lack of animation data. So keep that in mind if you are having problems with it.
 
 ## Searching the database
-
-
 
 Ok, now we have cost, a database, a matcher, and so. But we haven't talked about searching the database.
 
@@ -277,7 +275,7 @@ To prevent this, I had gone for a time locking feature to prevent switching too 
 First we remove the time lock. Then I uncap the animation tracks for blending, to allow the system to use as many animations as it needed to blend into something that worked for it.
 
 After this, we were having pretty good results, but sometimes we were getting quite a few animations... around 20 being blended to match something. This is not that bad, but we could do better. So we added a minimum improvement from current value.   
-  
+
 To explain this, we are going to assume that the current pose value is 0, so we only care about how good it follows the trajectory, and matches the speed. Then we will compare that value with the best candidate to switch,  if the best candidate is more than 20% better we switch. 
 
 ```
@@ -294,22 +292,22 @@ Invalid Swith:
 
 ## Playing the selected frame
 
-The winner may be any frame inside a multi-minute clip. To play it, I use Unity's Playables API with a two-slot mixer.
+The winner may be any frame inside a multi-minute clip. To play it, I use Unity's Playables API with an n-slot mixer. We used to have only 2 channels for mixing, but we update it to around 15, and we can add more any time, to prevent hitches when having animation switches happening too fast.
 
 When switching:
 
 1. The new clip starts at the selected time.
 2. The previous clip keeps moving.
-3. Both animations cross-fade.
-4. The old slot is reused for the next switch.
+3. Both animations cross-fade to the new clip.
+4. The old slot is cleaned and ready for the next switch.
 
-Keeping the outgoing clip moving is important. Freezing it during the blend makes the character look like it briefly got caught on invisible furniture.
+Keeping the outgoing clips moving is important. Freezing it during the blend makes the character look like it briefly got caught on invisible furniture.
 
 The blend duration changes slightly depending on the pose difference. A close match can blend quickly. A worse match gets a little more time to hide the evidence.
 
 ## Root motion
 
-I do not use Mecanim's root-motion delta as the main movement source. (Hence the problem with the root and shit from before)
+I do not use Mecanim's root-motion delta as the main movement source.
 
 Our Motion matching jumps to arbitrary timestamps, and asking the normal root-motion system to behave perfectly after teleporting a playable into the middle of a long clip felt a bit optimistic.
 
