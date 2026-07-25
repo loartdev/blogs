@@ -366,6 +366,7 @@ We had:
 - An older Unity version.
 - VR performance requirements.
 - Several future simulator projects that could reuse the technology.
+- I wanted job security
 
 So yes, for us, it was worth it. Not because motion matching is magical.
 
