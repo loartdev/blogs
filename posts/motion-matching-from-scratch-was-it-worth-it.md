@@ -142,31 +142,37 @@ For every mocap clip, I create a baked pose asset that contains the data for eve
 
 For our system I bake the data at 10Hz using the editor tools, then our team (For now just me) can go and place tags on the animation to make the system more accurate, block sections that make no sense, and tag sections that might just be a different locomotion type.
 
-
-
 The source clip is still one long recording. I do not cut it into a clean walk loop, run loop, turn-left clip, and thirty-seven transition clips. That was one of the main reasons for building this system.
 
 The matcher should be able to jump directly into any useful point in the recording at runtime.
 
 The baked data is stored in flat arrays. Not because flat arrays are beautiful, but because searching thousands of tiny objects every few milliseconds is a good way to make the profiler start sending threatening messages, and me to get motion sick on VR.
 
-## Conventions and Bones
 
-One problem I did not expect was that "root" can mean two different things.
 
-The **motion root** is the top-level character object used by Unity. It represents where the character moves in the world, also where the character is.
+## Filling the database
 
-The **pose root** is the root bone inside the skeleton. It normally gives us the Root Motion we all love, or at least when you don't have to worry about it you love it, as this is not a global value, but instead a relative value. So yea don't use it for world position.
+Now that we have all of our data in a nice clean asset, and we have a database. We need to fill the data base with the assets. But here is where things become a bit more complex.  
+  
+Each asset contains multiple frames, more specific, we have 10 times as many seconds in a clip. That doesn't sound too big until you do the math.
 
-Unity's Mecanim, moves the motion root using the data from the pose root. And that is why I fully forgot those where different values. So we needed to use one "root" for some things, and the other for other things.
+```
+WalkingClip:
+  Length: 180 seconds,
+  FrameCount: 5400 (30 fps),
+  SampledFrames: 1800
 
-The hips, chest, hands, head, and feet use the pose root. While moving the character, adjusting the IK, getting the runtime trajectory and so, had to come from the motion root.
+RunningClip:
+  Length: 204 seconds,
+  FrameCount: 6120 (30 fps),
+  SampledFrames; 2040
+```
 
-And well... Mixing one way or another still produces valid numbers, which is unfortunate, because valid numbers are much harder to debug than an exception.
+Just in those 2 clips we have almost 4000 sampled frames containing all of the data we need to check if that animation will work for us. While the data is really good, and we try to minimize the amount of it, that is still too much, so we want to have only the necesary data.
 
-The result is normally a foot appearing somewhere that is technically near the character, but spiritually somewhere else.
+There are multiple ways to do this, but the way we choosed to do this is to have a Dynamic Database. This means we can add and remove clips from it at runtime, allowing us save on searches by reducing the amount of sampled frames.
 
-So the baker and the live character must use the exact same bones, spaces, and conventions.
+There might be better ways, but due to this system being done by me, and I don't know everything in this world, this is the way we are doing it now.
 
 ## What does the matcher need?
 
