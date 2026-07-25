@@ -116,6 +116,7 @@ So we needed to define our data.
 Frame:
 > Current time
 > Tag
+> Close to the end of the clip?
 
 Root Motion:
 > Current position and rotation
@@ -174,14 +175,14 @@ There might be better ways, but due to this system being done by me, and I don't
 
 ## What does the matcher need?
 
+The matcher is the system that we use for choosing the best animation, It is responsible for taking all the values at runtime and then searching the database to get an animation.
+
 At runtime the matcher needs two things:
 
 1. What is the character doing now?
 2. What does the character want to do next?
 
-A live pose sampler captures the current character in the same format as the baked frames.
-
-Then a trajectory source predicts the future movement.
+A live pose sampler captures the current character in the same format as the baked frames. Then a trajectory source predicts the future movement.
 
 For the current version, the trajectory comes from a `NavMeshAgent`. It provides the desired speed, facing direction, and several future points along the real navigation path. Giving the matcher a more complex enigma so solve.
 
@@ -197,9 +198,9 @@ We obviously had to make this system work with the future. So instead of locking
 
 ## The cost function
 
-The cause of my pain, the solution to my problems… Yup, the cost function.
+And here we go, the way to calculate what is the current cost of any sampled frame. This is what helps us to define and adjust what we want the matcher to focus on.
 
-In simple terms, every candidate frame receives a cost. Smaller is better, may the best one win.
+We use a simple cost analysis, the smaller the value the better the animation... But how? Well, the way we use it, is that we have defined what each thing cost, the higher the value of something the more important it becomes. 
 
 The total cost has three main parts:
 
@@ -237,40 +238,62 @@ For each future sample, I compare:
 
 Getting the right future trajectory matters a lot because a frame that looks perfect for the next tenth of a second but runs into a wall half a second later is not actually a good match.
 
+
+
+### Adjusting the cost
+
+Now that we know what we are tracking, we need to adjust the cost of each thing. So I exposed all the costs to the editor, so I can run tests, make changes, and exports fast, and without changing the code.  
+  
+Here you are trying to balance between plenty of things. How accurate it is to follow the trajectory? How important are the feet? Is the speed more important than the path? Do we care about the current tag more than the position of the feet? And so on. 
+
+Now there is always the question of how much of the problem is my values on the cost function and how much of it is lack of animation data. So keep that in mind if you are having problems with it.
+
 ## Searching the database
 
-The current matcher uses brute force.
 
-Yes, really.
 
-Every search ticks, it checks every valid frame in every baked clip.
+Ok, now we have cost, a database, a matcher, and so. But we haven't talked about searching the database.
 
-I expected this to be the part where I needed a very clever search structure with clustering, nearest neighbours, and enough math to make the system look important.
+The matcher has a fixed search Hz rate. We don't want to read the database every frame, we might want to read it every couple of frames, but then we are dependent on the frame rate. So what we do is search it X times per second. As an example 10 Hz, or 10 times per second.
 
-But with a few long clips sampled at a reasonable rate, the database only contains a few thousand candidates, flat data, no allocations, and searching around fifteen times per second was fast enough.
+Now how do we go over all the data? Some people have filtered data sets that they can search by filtering important data, and then only going over that. But we are not that fancy. 
 
-So I kept the boring version.
+We just go for it.... Yup, Brutforcing our away into motion matching. 
 
-A complicated solution is not automatically a better solution. Sometimes it is only a more complicated bug. And remember that I have to maintain this system, So a simple and elegant brute force system was perfect. Also thanks to the simplicity we can multi-thread the search and math.
+This means that every search tick we go over all the data. That why it was important for us to not have too much data on the database. Otherwise, the performance would have been pretty bad
 
-### Basic Filters?
+Now, I expected this to be the part where I needed a very clever search structure with clustering, nearest neighbours, and enough math to make the system look important.
 
-Ok, I know I just said we have a simple and elegant brute force system, But we also needed a way to prevent things like a jump to happen randomly. So I added a Tag system, it allows for both things, tag data that might not be usable, and catalogue the data, things like crouching, drinking water, jumping, falling to roll because the mocap actor doesn't know how to. The obvious.
+But with a few long clips sampled at a reasonable rate, the database only contains a few thousand candidates, flat data, no allocations, and searching around ten times per second was fast enough... just with one caveat, we had to multi-thread the search so when we have 10-15-40-60-90 character in the scene, the motion matching didn't kill our frames.
 
-This tag system sits on the Editor system so that animators and other people on the team can tag sections of the animations, then at runtime you can exclude the data, or you can force playing it. Like telling your character to jump at a ledge, or to fall... That was painful to record.
+Now before anyone tells me this is the wrong way because it is too simple and inefficient, A complicated solution is not automatically a better solution. Sometimes it is only a more complicated bug. And remember that I have to maintain this system, So a simple and elegant brute force system was perfect. Also thanks to the simplicity we can multi-thread the search and math.
 
 ## Preventing the matcher from panicking
 
 Mathematically the best frame is not always worth switching to. If the matcher changes animation whenever it finds a slightly cheaper frame, the character constantly cross-fades between nearly identical options. It looks less like natural locomotion and more like the character is reconsidering every life decision.
 
-So the matcher compares the best candidate against simply continuing the current animation.
+To prevent this, I had gone for a time locking feature to prevent switching too fast. This was working ok… but had its caveats, first, if we switched to another pose we were locked for 0.3 seconds, that doesn't sound as much, but it affects how the character moves. So I needed a better solution.
 
-It only switches when:
+First we remove the time lock. Then I uncap the animation tracks for blending, to allow the system to use as many animations as it needed to blend into something that worked for it.
 
-- Enough time has passed since the last switch. (I only lock the change for 0.12 seconds)
-- The new candidate is meaningfully better.
+After this, we were having pretty good results, but sometimes we were getting quite a few animations... around 20 being blended to match something. This is not that bad, but we could do better. So we added a minimum improvement from current value.   
+  
+To explain this, we are going to assume that the current pose value is 0, so we only care about how good it follows the trajectory, and matches the speed. Then we will compare that value with the best candidate to switch,  if the best candidate is more than 20% better we switch. 
 
-This hysteresis made a much bigger visual difference than I expected. Motion matching is not only about finding the best frame. It is also about knowing when to leave a perfectly acceptable one alone.
+```
+Valid Switch:
+> CurrentPose Cost: 30 // cost of cotinuing on this animation
+> BestCandidatePose Cost: 24 // Cost of switching + trajectory and speed
+
+Invalid Swith:
+> CurrentPose Cost: 30
+> BestCandidatePose Cost: 28
+
+
+
+```
+
+
 
 ## Playing the selected frame
 
@@ -356,3 +379,20 @@ It is not.
 It is a large collection of small systems that must agree about bones, spaces, timing, movement, blending, contacts, and what "good" even means. But now we can add new mocap, bake it, place it in the database, and let the matcher use it without rebuilding an entire locomotion state machine.
 
 And more importantly, when the character makes a terrible decision, I can now see exactly why. Which is useful because it still makes terrible decisions sometimes. Just like me.
+
+
+
+## References and Useful links:
+
+- [https://www.gdcvault.com/play/1023280/Motion-Matching-and-The-Road](https://www.gdcvault.com/play/1023280/Motion-Matching-and-The-Road)
+- [https://www.ubisoft.com/en-us/studio/laforge/news/6xXL85Q3bF2vEj76xmnmIu/introducing-learned-motion-matching](https://www.ubisoft.com/en-us/studio/laforge/news/6xXL85Q3bF2vEj76xmnmIu/introducing-learned-motion-matching)
+- [https://github.com/ubisoft/ubisoft-laforge-animation-dataset](https://github.com/ubisoft/ubisoft-laforge-animation-dataset)
+- [https://www.gameanim.com/2021/10/09/character-locomotion-in-half-life-alyx/](https://www.gameanim.com/2021/10/09/character-locomotion-in-half-life-alyx/)
+- [https://www.ubisoft.com/en-us/studio/laforge/news/1ERUZiYmmtUBYZ4KvVvmFP/robust-motion-inbetweening](https://www.ubisoft.com/en-us/studio/laforge/news/1ERUZiYmmtUBYZ4KvVvmFP/robust-motion-inbetweening)
+- [https://static-wordpress.ubisoft.com/montreal.ubisoft.com/wp-content/uploads/2020/07/09154101/Learned\_Motion\_Matching.pdf](https://static-wordpress.ubisoft.com/montreal.ubisoft.com/wp-content/uploads/2020/07/09154101/Learned_Motion_Matching.pdf)
+
+
+
+&nbsp;
+
+&nbsp;
