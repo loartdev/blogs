@@ -368,15 +368,7 @@ We had:
 - Several future simulator projects that could reuse the technology.
 - I wanted job security
 
-So yes, for us, it was worth it. Not because motion matching is magical.
-
-It is not.
-
-It is a large collection of small systems that must agree about bones, spaces, timing, movement, blending, contacts, and what "good" even means. But now we can add new mocap, bake it, place it in the database, and let the matcher use it without rebuilding an entire locomotion state machine.
-
-And more importantly, when the character makes a terrible decision, I can now see exactly why. Which is useful because it still makes terrible decisions sometimes. Just like me.
-
-
+So yes, for us, it was worth it. We only got benefits from it, allowing to make full use of our advantages, while increasing the quality of the moment, and keeping a pipeline that can scale.
 
 ## References and Useful links:
 
