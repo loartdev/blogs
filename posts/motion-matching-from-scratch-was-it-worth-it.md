@@ -355,6 +355,54 @@ And you may ask why spend time making that instead of making the system better? 
 
 The debugger made the system understandable, while making testing simple and repeatable. That may have been more important than any single feature in the cost function.
 
+
+
+&nbsp;
+
+&nbsp;
+
+## Is it me or is the data?
+
+One big problem you will find when doing you own system is the big question: Does my code suck or the data sucks?
+
+And to find out you have to do a lot of trial and error, but due to constrains like the fact we can not be doing mocap all the time to see if the problem is the code or the data, I had to make tooling for verifying this. 
+
+
+
+### Database analysis
+
+To figure out why the system was failing some times I needed couple of things, a constant test system (I had done before). Data from those runs, and a way to visualize the Database data. So I came up with a Python tool that can go over the database, not the animations, just the raw data that i was sampling form the animations themselves, and then visualize it in a clean and helpful way.
+
+![](https://res.cloudinary.com/loartdev/image/upload/v1785269124/loartdev-media/blog/jo2y0l8v2mvggrbid2en.png align="center")
+
+
+
+
+
+![](https://res.cloudinary.com/loartdev/image/upload/v1785269149/loartdev-media/blog/wdqwlazk3u7jjjvpklrr.png align="center")
+
+
+
+
+
+&nbsp;
+
+![](https://res.cloudinary.com/loartdev/image/upload/v1785269169/loartdev-media/blog/igylybsn5ehfmtokjxbq.png align="center")
+
+
+
+![](https://res.cloudinary.com/loartdev/image/upload/v1785269188/loartdev-media/blog/rcx84ldjgt0mjfngtjog.png align="center")
+
+
+
+
+
+![](https://res.cloudinary.com/loartdev/image/upload/v1785269201/loartdev-media/blog/vadyslyusvm1qs4qzbl6.png align="center")
+
+
+
+
+
 ## So, was it worth it?
 
 For most projects, building motion matching from scratch is probably not worth it. If an existing tool supports your engine version, animation pipeline, and target platform, use it. For us, the situation was different.
