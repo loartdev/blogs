@@ -381,13 +381,17 @@ First I wanted to know how the date we had was distributed, things like directio
 
 
 
-Then we focused on how the poses related, as this will affect how the animation transitions from one to another. The closer they are the better for transitioning. But far points are not fully bad, juts means the system will assign higher cost to those animations, and higher costs to getting out of those animations.
+&nbsp;
+
+Then we focused on how the poses related, as this will affect how the animation transitions from one to another. The closer they are the better for transitioning. But far points are not fully bad, juts means the system will assign higher cost to those animations, and higher costs to getting out of those animations. This expalianed why some times it was hard to get characters in or out specific animations. As an example, the Pink dots are the crouching animation, you can see they are all clustered away from the main section, this is expected but at the same time it makes it so the transition between crouching and standing is too great. 
 
 ![](https://res.cloudinary.com/loartdev/image/upload/v1785269149/loartdev-media/blog/wdqwlazk3u7jjjvpklrr.png align="center")
 
 
 
 
+
+&nbsp;
 
 Now we had the information about the pose, but what about the rest, we are taking into account more data like speed, feet position, direction, head, hands and so. So we computed all off that and calculated the neighbors creating this graph. Showing how data relation worked on the rest. (Different colors are the different clips)
 
@@ -398,6 +402,8 @@ Now we had the information about the pose, but what about the rest, we are takin
 
 
 
+
+&nbsp;
 
 Now that we know all this, it was time to find gaps in our database, so we focused on figuring out what we needed to record to get a more accurate movement system.
 
@@ -411,11 +417,15 @@ This graph shows the distribution of movement, things like distance in the next 
 
 &nbsp;
 
+&nbsp;
+
 ![](https://res.cloudinary.com/loartdev/image/upload/v1785269201/loartdev-media/blog/vadyslyusvm1qs4qzbl6.png align="center")
 
 
 
 
+
+&nbsp;
 
 The main idea was to visualize how the database worked, we wanted to be able to analyze things like how the database relation data. How easy it was to transition between clips, and how much data we had for the different motions.
 
