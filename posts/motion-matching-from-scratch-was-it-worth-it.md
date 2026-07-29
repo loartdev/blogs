@@ -379,6 +379,8 @@ To figure out why the system was failing some times I needed couple of things, a
 
 
 
+&nbsp;
+
 ![](https://res.cloudinary.com/loartdev/image/upload/v1785269149/loartdev-media/blog/wdqwlazk3u7jjjvpklrr.png align="center")
 
 
@@ -387,7 +389,11 @@ To figure out why the system was failing some times I needed couple of things, a
 
 &nbsp;
 
+&nbsp;
+
 ![](https://res.cloudinary.com/loartdev/image/upload/v1785269169/loartdev-media/blog/igylybsn5ehfmtokjxbq.png align="center")
+
+
 
 
 
@@ -397,9 +403,15 @@ To figure out why the system was failing some times I needed couple of things, a
 
 
 
+&nbsp;
+
 ![](https://res.cloudinary.com/loartdev/image/upload/v1785269201/loartdev-media/blog/vadyslyusvm1qs4qzbl6.png align="center")
 
 
+
+
+
+The main idea was to visualize how the database worked, we wanted to be able to analyze things like how the database relation data. How easy it was to transition between clips, and how much data we had for the different motions.
 
 
 
