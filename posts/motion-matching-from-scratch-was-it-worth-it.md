@@ -3,7 +3,7 @@ title: "Motion Matching from Scratch: Was It Worth It?"
 date: "2026-08-01"
 excerpt: "My experience building my company's motion-matching system from scratch."
 category: "Game Dev"
-tags: ["Unity", "MotionMatching", "Animation", "Mocap"]
+tags: ["Unity", "Animation", "Mocap", "Motion Matching"]
 featured: true
 bannerImage: ""
 ---
@@ -54,27 +54,6 @@ The problem comes from the next questions: what to track? How important each fea
 
 Existing tools do a great job at considering many of these things, and allow you to add more into the place to fit your systems. So if you have the change to work using one of those I highly suggest you do. Otherwise, you will have to match that movement the painful way... yea doing math.
 
-## Why me?
-
-Well, I love doing tools, pipelines, automations and so, and my boss is getting quite comfortable asking insane stuff to me... It doesn’t help that I keep getting this insane stuff done, that only fuels his next request.
-
-
-
-## Why not a pre-built system?
-
-In simple terms there are 2 main reasons:
-
-1. I was done with my project, so I had time to play around.
-2. We are on an outdated version of Unity and we have a Mocap Studio.
-
-So with that in mind we wanted a clean pipeline, and adapted to our use case, not a generic system made to work and maintain by experts. Also job security.
-
-Now for real, we also need a system that was made to fit the mocap data, without the need to doing heavy post-processing, chopping, and clean up. This because we don’t have that kind of time… Yet.
-
-Then this system has to work on the outdated version of Unity, and be fast enough we can use it for VR applications, without killing the frame rate.
-
-
-
 ## What was the initial scope?
 
 Let’s solve this question, the scope was ~~over-scope the shit out of this.~~
@@ -86,7 +65,7 @@ Then when I had learned I did a simple scope:
 1. **Simple locomotion:** No falling, jumping, or random violence.
 2. **Long raw mocap clips:** I was not cleaning that, and making loops or clean starts and stops.
 3. **Offline baking of data:** Extracting data into flat arrays had to be done in the editor, not at runtime.
-4. Simple to test and iterate: I was not going to depend on code changes or manual work, so I added tooling and exposed development data to accelerate my development.
+4. **Simple to test and iterate:** I was not going to depend on code changes or manual work, so I added tooling and exposed development data to accelerate my development.
 
 With that in mind, now we need some test Mocap, good news I am one of the Mocap "experts" and capable of doing almost everything. But I needed the help of someone else as I was the one in the skin-tight bodysuit cover in reflective balls... 
 
@@ -354,126 +333,6 @@ And you may ask why spend time making that instead of making the system better? 
 6. Repeat until confidence replaces evidence.
 
 The debugger made the system understandable, while making testing simple and repeatable. That may have been more important than any single feature in the cost function.
-
-
-
-&nbsp;
-
-&nbsp;
-
-## Is it me or is the data?
-
-One big problem you will find when doing your own system is the big question: Does my code suck or the data sucks?
-
-And to find out you have to do a lot of trial and error, but due to constrain like the fact we cannot be doing mocap all the time to see if the problem is the code or the data, I had to make tooling for verifying this. 
-
-
-
-### Database analysis
-
-To figure out why the system was failing sometimes I needed the couple of things, a constant test system (I had done before). Data from those runs, and a way to visualize the Database data. So I came up with a Python tool that can go over the database, not the animations, just the raw data that I was sampling from the animations themselves, and then visualize it in a clean and helpful way.
-
-First I wanted to know how the date we had was distributed, things like direction, speed, acceleration, and distribution.
-
-![](https://res.cloudinary.com/loartdev/image/upload/v1785269124/loartdev-media/blog/jo2y0l8v2mvggrbid2en.png align="center")
-
-
-
-
-
-&nbsp;
-
-Then we focused on how the poses related, as this will affect how the animation transitions from one to another. The closer they are, the better for transitioning. But far points are not fully bad, just means the system will assign higher cost to those animations, and higher costs to getting out of those animations. This explained why sometimes it was challenging to get characters in or out specific animations. As an example, the Pink dots are the crouching animation, you can see they are all clustered away from the main section, this is expected but at the same time it makes it so the transition between crouching and standing is too great. 
-
-![](https://res.cloudinary.com/loartdev/image/upload/v1785269149/loartdev-media/blog/wdqwlazk3u7jjjvpklrr.png align="center")
-
-
-
-
-
-&nbsp;
-
-Now we had the information about the pose, but what about the rest, we are considering more data like speed, feet position, direction, head, hands and so? So we computed all off that and calculated the neighbours creating this graph. Showing how data relation worked on the rest. (Different colours are the different clips)
-
-
-
-![](https://res.cloudinary.com/loartdev/image/upload/v1785269169/loartdev-media/blog/igylybsn5ehfmtokjxbq.png align="center")
-
-
-
-
-
-&nbsp;
-
-Now that we know all this, it was time to find gaps in our database, so we focused on figuring out what we needed to record to get a more accurate movement system.
-
-This graph shows the distribution of movement, things like distance in the next half second, and the speed vs direction, allowing us to figure out if we were missing animations for any specific movement we were doing.
-
-![](https://res.cloudinary.com/loartdev/image/upload/v1785269188/loartdev-media/blog/rcx84ldjgt0mjfngtjog.png align="center")
-
-
-
-
-
-![](https://res.cloudinary.com/loartdev/image/upload/v1785269201/loartdev-media/blog/vadyslyusvm1qs4qzbl6.png align="center")
-
-
-
-
-
-&nbsp;
-
-The main idea was to visualize how the database worked, I wanted to be able to analyze things like how the database relation data. How easy it was to transition between clips, and how much data we had for the different motions.
-
-With this, we were able to establish a better pipeline for testing the animation database without running tons of tests to see whether we had improved or not. And with that, we were able to implement better Dance Cards recordings, making our data cleaner and more effective.
-
-
-
-Now you probably saw there a lot of data, and a lot of it is overlapped... well, that has its advantages, but also disadvantages. First more data mean more scenarios covered, more natural, more variations. but it also means higher search times, more data that might be defective or cause visual bugs, and more conflicting data.
-
-
-
-### Refining the data
-
-One thing that became clear, is that we needed to track a lot of data, but too much data is not good, and too little data is also not good. So balancing it was important, we wanted to have enough high-quality data.
-
-
-
-I had 3 paths for this, each one helped improve the data, allowing me to get better results, without killing performance or the memory.
-
-
-
-#### Sampled Frames
-
-This is the basic one. It is about what you are tracking. Increasing or reducing the tracked data is important to reduce the number of problems, and fine tune the system.
-
-But do you need all the velocities? or positions, or the data for 1 second in the future?
-
-Well, this is where you start to go over and change what data you are baking, test if the system works or not, and then reconsider your life choices. 
-
-The idea is to track only what you really need, not every single bone.
-
-
-
-#### Mocap Animations
-
-This is where things get expensive. Sometimes the only way to improve data is to get more, or get better mocap, and that is expensive as it is time from other people, then clean up processes, and plenty of time-consuming tasks. But this is where you are going to get the best benefit.  
-
-
-
-When you do the mocap, don't do a generic fits all solution, do one that fits your use case. if you don't need people running, then don't record people running. The Mocap should contain the data you will use, and reducing the size of unnecessary data helps to have a smaller database without loosing quality. 
-
-
-
-Another thing is how you pack your dances. The more data you pack into it the more data you have to load into memory. And while this might not be a problem for a small-scale game, or the main character. We don't want to load 200 Mb of animations when we could just have 20 Mb... Pack your animations by use case, you can have a full strafing animation set, and the only load it when you need it making your data set smaller and your use of memory too.
-
-
-
-#### Animation Tags
-
-I implemented the animation tag system. This was a feature meant to improve the animation selection. It allowed us to have animations that were too costly be played, and also to do things like crouching.
-
-But using the animation tags also allowed us to avoid animations, and improve the others. by adding proper things like strafing into the tags, we were able to force the character to use those animations, or avoid them.
 
 
 
