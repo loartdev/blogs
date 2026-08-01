@@ -48,6 +48,8 @@ The tool took all the database and baked samples containing everything the syste
 
 &nbsp;
 
+&nbsp;
+
 ### Data relations
 
 Ok We know how much data we have to go in different directions and speeds. But, how does that data relations with the other?
@@ -63,6 +65,8 @@ Here we took the basics, first we analyzed how the poses were related, the close
 
 
 
+
+&nbsp;
 
 To make things easier the data was coloured coded by clips, and as you can see, there is one clip, the pink one, that is far apart from the other data... this is because that is crouching animation clip, and thanks to this we discovered why it was so challenging to make the character enter or leave the crouching state. So yea I wasn't crazy… The system just works properly.
 
@@ -82,6 +86,8 @@ That is what this graph shows, same as before, the closer the dots the easier it
 
 &nbsp;
 
+&nbsp;
+
 Let's take that and display it in a comparison table,  We are comparing how many transitions and how costly it would be to transition between clips. More specific how costly it is to get from the animation on the Y to the animation on the X, and how many clips can transition.
 
 ![](https://res.cloudinary.com/loartdev/image/upload/v1785269201/loartdev-media/blog/vadyslyusvm1qs4qzbl6.png align="center")
@@ -89,6 +95,8 @@ Let's take that and display it in a comparison table,  We are comparing how many
 
 
 
+
+&nbsp;
 
 ### Locomotion data
 
@@ -104,34 +112,5 @@ Ok, we can transition, we can walk, we look spectacular.... but why is the chara
 
 &nbsp;
 
-&nbsp;
 
-### Refining the data
 
-One thing that became clear, is that we needed to track a lot of data, but too much data is not good, and too little data is also not good. So balancing it was important, we wanted to have enough high-quality data.
-
-I had 3 paths for this, each one helped improve the data, allowing me to get better results, without killing performance or the memory.
-
-#### Sampled Frames
-
-This is the basic one. It is about what you are tracking. Increasing or reducing the tracked data is important to reduce the number of problems, and fine tune the system.
-
-But do you need all the velocities? Or positions, or the data for 1 second in the future?
-
-Well, this is where you start to go over and change what data you are baking, test if the system works or not, and then reconsider your life choices. 
-
-The idea is to track only what you really need, not every single bone.
-
-#### Mocap Animations
-
-This is where things get expensive. Sometimes the only way to improve data is to get more, or get better mocap, and that is expensive as it is time from other people, then clean up processes, and plenty of time-consuming tasks. But this is where you are going to get the best benefit.  
-
-When you do the mocap, don't do a generic fits all solution, do one that fits your use case. If you don't need people running, then don't record people running. The Mocap should contain the data you will use, and reducing the size of unnecessary data helps to have a smaller database without loosing quality. 
-
-Another thing is how you pack your dances. The more data you pack into it the more data you have to load into memory. And while this might not be a problem for a small-scale game, or the main character. We don't want to load 200 Mb of animations when we could just have 20 Mb... Pack your animations by use case, you can have a full strafing animation set, and the only load it when you need it making your data set smaller and your use of memory too.
-
-#### Animation Tags
-
-I implemented the animation tag system. This was a feature meant to improve the animation selection. It allowed us to have animations that were too costly be played, and also to do things like crouching.
-
-But using the animation tags also allowed us to avoid animations, and improve the others. By adding proper things like strafing into the tags, we were able to force the character to use those animations, or avoid them.
