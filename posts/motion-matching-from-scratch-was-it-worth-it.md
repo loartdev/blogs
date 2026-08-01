@@ -1,5 +1,5 @@
 ---
-title: "Motion Matching from Scratch: Was It Worth It?"
+title: "Motion Matching from Scratch: main"
 date: "2026-08-01"
 excerpt: "My experience building my company's motion-matching system from scratch."
 category: "Game Dev"
